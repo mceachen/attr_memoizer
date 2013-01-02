@@ -1,4 +1,4 @@
-# AttrMemoized [![Build Status](https://travis-ci.org/mceachen/attr_memoized.png)](https://travis-ci.org/mceachen/attr_memoized)
+# AttrMemoized [![Build Status](https://api.travis-ci.org/mceachen/attr_memoized.png?branch=master)](https://travis-ci.org/mceachen/attr_memoized)
 
 The common ruby idiom for attribute [memoization](http://en.wikipedia.org/wiki/Memoization)
 looks like this:
