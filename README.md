@@ -72,6 +72,6 @@ And then execute:
 
 ## Changelog
 
-### 0.0.1
+### 0.0.7
 
 * Renamed from [deferred_attribute](https://github.com/mceachen/deferred_attribute)
