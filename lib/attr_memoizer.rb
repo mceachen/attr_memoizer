@@ -1,12 +1,12 @@
-require "attr_memoizable/version"
+require "attr_memoizer/version"
 
-module AttrMemoizable
+module AttrMemoizer
   def self.included(klass)
     klass.extend ClassMethods
   end
 
   module ClassMethods
-    def attr_memoizable(*attrs)
+    def attr_memoizer(*attrs)
       attrs_to_memoize.concat(attrs.collect { |ea| ea.to_sym }).uniq!
       # OMG 1.8.7 RETURNS STRINGS
       existing_methods = self.instance_methods(true).collect { |ea| ea.to_sym }
@@ -26,7 +26,7 @@ module AttrMemoizable
     end
 
     def method_added(method_name)
-      attr_memoizable(method_name) if attrs_to_memoize.include?(method_name)
+      attr_memoizer(method_name) if attrs_to_memoize.include?(method_name)
       super
     end
   end

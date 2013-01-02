@@ -1,4 +1,4 @@
-# AttrMemoizable [![Build Status](https://api.travis-ci.org/mceachen/attr_memoizable.png?branch=master)](https://travis-ci.org/mceachen/attr_memoizable)
+# AttrMemoizer [![Build Status](https://api.travis-ci.org/mceachen/attr_memoizer.png?branch=master)](https://travis-ci.org/mceachen/attr_memoizer)
 
 The common ruby idiom for attribute [memoization](http://en.wikipedia.org/wiki/Memoization)
 looks like this:
@@ -16,18 +16,18 @@ doesn't work correctly—the prior memoized value of
 ```some_expensive_task``` will be ignored, and every subsequent call to ```field``` will result
 in another call to ```some_expensive_task```.
 
-<strong>AttrMemoizable aims to usurp your misbegotten love of ```||=```.</strong>
+<strong>AttrMemoizer aims to usurp your misbegotten love of ```||=```.</strong>
 
 ## Usage
 
-1. ```include AttrMemoizable```
-2. Call ```attr_memoizable``` with the attributes you want memoized
+1. ```include AttrMemoizer```
+2. Call ```attr_memoizer``` with the attributes you want memoized
 3. Throw your ```@something ||=``` **on the [ground](http://en.wikipedia.org/wiki/Threw_It_on_the_Ground)**.
 
 ``` ruby
 class Example
-  include AttrMemoizable
-  attr_memoizable :field, :another_field
+  include AttrMemoizer
+  attr_memoizer :field, :another_field
 
   def field
     # code that computes field
@@ -46,8 +46,8 @@ Note that caching method results does **not** span instances:
 
 ``` ruby
 class TimeHolder
-  include AttrMemoizable
-  attr_memoizable :a_time
+  include AttrMemoizer
+  attr_memoizer :a_time
 
   def a_time
     Time.now
@@ -71,9 +71,9 @@ TimeHolder.new.a_time
 To keep the metaprogramming demons at bay, we're using ```alias_method``` to rename the method—if
 you rename the attribute or look for consumers of the attribute, you at least has a chance of
 finding the attribute and their consumers, as opposed to how deferred_attribute worked, which made
-you call a method that only existed after the attr_memoizable method ran.
+you call a method that only existed after the attr_memoizer method ran.
 
-The problem with using ```alias_method``` at the time that ```attr_memoizable``` is called, is that
+The problem with using ```alias_method``` at the time that ```attr_memoizer``` is called, is that
 the method may not be defined in the class yet. To get around this issue, we implement the
 class-level ```method_added``` hook, and set up the memoization after the method is defined.
 
@@ -85,7 +85,7 @@ implementation. See the test cases for examples, and proof that this nonsense al
 Add this line to your application's Gemfile:
 
 ``` ruby
-gem 'attr_memoizable'
+gem 'attr_memoizer'
 ```
 
 And then execute:
@@ -94,6 +94,6 @@ And then execute:
 
 ## Changelog
 
-### 0.0.7
+### 0.0.1
 
-* Renamed from [deferred_attribute](https://github.com/mceachen/deferred_attribute)
+* There were previous names for this library. We won't speak of them again.

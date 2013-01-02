@@ -1,6 +1,6 @@
 require 'minitest_helper'
 
-describe AttrMemoizable do
+describe AttrMemoizer do
 
   before :each do
     Target.call_count = 0
@@ -24,9 +24,9 @@ describe AttrMemoizable do
       "prething#{self.class.call_count += 1}"
     end
 
-    include AttrMemoizable
-    attr_memoizable :thing, :already_defined_field
-    attr_memoizable :one_more_thing
+    include AttrMemoizer
+    attr_memoizer :thing, :already_defined_field
+    attr_memoizer :one_more_thing
 
     def thing
       "thing#{self.class.call_count += 1}"
@@ -46,8 +46,8 @@ describe AttrMemoizable do
     self.methods_added = []
     self.call_count = 0
 
-    include AttrMemoizable
-    attr_memoizable :thing
+    include AttrMemoizer
+    attr_memoizer :thing
 
     def self.method_added(method_name)
       self.methods_added << method_name
@@ -84,13 +84,13 @@ describe AttrMemoizable do
     t.already_defined_field.must_equal "prething1"
   end
 
-  it "works for fields defined after attr_memoizable" do
+  it "works for fields defined after attr_memoizer" do
     t = Target.new
     t.thing.must_equal "thing1"
     t.thing.must_equal "thing1"
   end
 
-  it "works for multiple calls to attr_memoizable" do
+  it "works for multiple calls to attr_memoizer" do
     t = Target.new
     t.one_more_thing.must_equal "iThing1"
     t.one_more_thing.must_equal "iThing1"
