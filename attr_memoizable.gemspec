@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'attr_memoized/version'
+require 'attr_memoizable/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "attr_memoized"
-  gem.version       = AttrMemoized::VERSION
+  gem.name          = "attr_memoizable"
+  gem.version       = AttrMemoizable::VERSION
   gem.authors       = ["Matthew McEachen"]
   gem.email         = ["matthew+github@mceachen.org"]
   gem.description   = %q{Correct attribute memoization for ruby, made easy}
   gem.summary       = gem.description
-  gem.homepage      = "https://github.com/mceachen/attr_memoized"
+  gem.homepage      = "https://github.com/mceachen/attr_memoizable"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

@@ -1,4 +1,4 @@
-# AttrMemoized [![Build Status](https://api.travis-ci.org/mceachen/attr_memoized.png?branch=master)](https://travis-ci.org/mceachen/attr_memoized)
+# AttrMemoizable [![Build Status](https://api.travis-ci.org/mceachen/attr_memoizable.png?branch=master)](https://travis-ci.org/mceachen/attr_memoizable)
 
 The common ruby idiom for attribute [memoization](http://en.wikipedia.org/wiki/Memoization)
 looks like this:
@@ -16,18 +16,18 @@ doesn't work correctly—the prior memoized value of
 ```some_expensive_task``` will be ignored, and every subsequent call to ```field``` will result
 in another call to ```some_expensive_task```.
 
-<strong>AttrMemoized aims to usurp your misbegotten love of ```||=```.</strong>
+<strong>AttrMemoizable aims to usurp your misbegotten love of ```||=```.</strong>
 
 ## Usage
 
-1. ```include AttrMemoized```
-2. Call ```attr_memoized``` with the attributes you want memoized
+1. ```include AttrMemoizable```
+2. Call ```attr_memoizable``` with the attributes you want memoized
 3. Throw your ```@something ||=``` **on the [ground](http://en.wikipedia.org/wiki/Threw_It_on_the_Ground)**.
 
 ``` ruby
 class Example
-  include AttrMemoized
-  attr_memoized :field, :another_field
+  include AttrMemoizable
+  attr_memoizable :field, :another_field
 
   def field
     # code that computes field
@@ -42,16 +42,38 @@ end
 Calling ```Example.new.field``` will call your definition of ```field```, memoize the result
 for subsequent calls to an ivar called ```@field```, and return that value.
 
-Note that caching method results does **not** span instances.
+Note that caching method results does **not** span instances:
+
+``` ruby
+class TimeHolder
+  include AttrMemoizable
+  attr_memoizable :a_time
+
+  def a_time
+    Time.now
+  end
+end
+
+t = TimeHolder.new
+t.a_time
+#> 2013-01-01 00:00:00 -0800
+sleep 1
+t.a_time
+#> 2013-01-01 00:00:00 -0800 # < this is the memoized value
+
+# But with a new instance, we get a new value:
+TimeHolder.new.a_time
+#> 2013-01-01 20:26:41 -0800
+```
 
 ### Gotcha
 
 To keep the metaprogramming demons at bay, we're using ```alias_method``` to rename the method—if
 you rename the attribute or look for consumers of the attribute, you at least has a chance of
 finding the attribute and their consumers, as opposed to how deferred_attribute worked, which made
-you call a method that only existed after the attr_memoized method ran.
+you call a method that only existed after the attr_memoizable method ran.
 
-The problem with using ```alias_method``` at the time that ```attr_memoized``` is called, is that
+The problem with using ```alias_method``` at the time that ```attr_memoizable``` is called, is that
 the method may not be defined in the class yet. To get around this issue, we implement the
 class-level ```method_added``` hook, and set up the memoization after the method is defined.
 
@@ -63,7 +85,7 @@ implementation. See the test cases for examples, and proof that this nonsense al
 Add this line to your application's Gemfile:
 
 ``` ruby
-gem 'attr_memoized'
+gem 'attr_memoizable'
 ```
 
 And then execute:
