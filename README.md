@@ -21,7 +21,7 @@ in another call to ```some_expensive_task```.
 ## Usage
 
 1. ```include AttrMemoized```
-2. list the attr_memoized
+2. Call ```attr_memoized``` with the attributes you want memoized
 3. Throw your ```@something ||=``` **on the [ground](http://en.wikipedia.org/wiki/Threw_It_on_the_Ground)**.
 
 ``` ruby
