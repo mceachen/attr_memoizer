@@ -7,7 +7,9 @@ module AttrMemoized
 
   module ClassMethods
     def attr_memoized(*attrs)
-      attrs_to_be_memoized.concat(attrs - instance_methods(false))
+      # OMG 1.8.7 RETURNS STRINGS
+      instance_methods = instance_methods(true).collect { |ea| ea.to_sym }
+      attrs_to_be_memoized.concat(attrs - instance_methods)
       (attrs - attrs_to_be_memoized).each do |name|
         class_eval <<-RUBY
           alias_method :_#{name}, :#{name}
@@ -19,7 +21,7 @@ module AttrMemoized
     end
 
     def attrs_to_be_memoized
-      @attrs_for_later ||= []
+      @attrs_to_be_memoized ||= []
     end
 
     def method_added(method_name)
