@@ -1,4 +1,4 @@
-# AttrMemoizer [![Build Status](https://api.travis-ci.org/mceachen/attr_memoizer.png?branch=master)](https://travis-ci.org/mceachen/attr_memoizer)
+# AttrMemoizer [![Build Status](https://api.travis-ci.org/mceachen/attr_memoizer.png?branch=master)](https://travis-ci.org/mceachen/attr_memoizer) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mceachen/attr_memoizer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 The common ruby idiom for attribute [memoization](http://en.wikipedia.org/wiki/Memoization)
 looks like this:
