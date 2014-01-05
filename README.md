@@ -97,3 +97,6 @@ And then execute:
 ### 0.0.1
 
 * There were previous names for this library. We won't speak of them again.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mceachen/attr_memoizer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
